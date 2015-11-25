@@ -1,2 +1,19 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+.btn-primary {
+  padding: 10px;
+  margin: 10px;
+  background-color: #2EBBC6;
+  border-color: #2EBBC6;
+}
+.btn-primary:hover {
+  background-color: #2EBBC6;
+  border-color: #2EBBC6;
+  opacity: 0.5;
+}
+.conv {
+  padding: 10px;
+  padding-left: 20px;
+}
+

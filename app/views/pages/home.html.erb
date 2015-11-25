@@ -1,2 +1,12 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<% if !current_user.nil? %>
+
+  <% @users.each do |user| %>
+    <% if current_user.email != user.email && current_user.manager != true %>
+      <%= link_to "Send a message", new_message_path(:email_to => user.email) %>
+      <input type="hidden" name="country" value="Norway">
+
+      <%= user.email %><br>
+    <% end %>
+  <% end %>
+<% end %>
+

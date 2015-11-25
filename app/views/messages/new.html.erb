@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="row" >
+    <div class="col-md-8 col-md-offset-2 text-center">
+      <h1>My conversation with <%= params[:email_to] %></h1>
+      <%= form_for @message, :html => {:class => 'form-froup'} do |f| %>
+        <%= f.hidden_field :sent_messageable_id, value: params[:email_to] if !params[:email_to].nil? %>
+        <%= f.label :body, "Enter a message" %>
+        <%= f.text_area :body, class: "form-control" %>
+        <%= f.submit class: "btn btn-primary" %>
+      <% end %>
+      <%= render 'show' %>
+
+    </div>
+  </div>
+</div>
+

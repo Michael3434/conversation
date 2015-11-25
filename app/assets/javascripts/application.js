@@ -1,17 +1,23 @@
-// This is a manifest file that'll be compiled into application.js, which will include all the files
-// listed below.
-//
-// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
-// or any plugin's vendor/assets/javascripts directory can be referenced here using a relative path.
-//
-// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
-// compiled file.
-//
-// Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
-// about supported directives.
+$( document ).ready(function() {
 
-//= require jquery
-//= require bootstrap-sprockets
-//= require jquery_ujs
-//= require turbolinks
-//= require_tree .
+$( "#form" ).submit(function( event ) {
+
+  // Stop form from submitting normally
+  event.preventDefault();
+
+  // Get some values from elements on the page:
+  var $form = $( this ),
+    term = $form.find( "input[name='s']" ).val(),
+    url = $form.attr( "action" );
+
+  // Send the data using post
+  var posting = $.post( url, { s: term } );
+
+  // Put the results in a div
+  posting.done(function( data ) {
+    var content = $( data ).find( "#content" );
+    $( "#result" ).empty().append( content );
+  });
+});
+
+});

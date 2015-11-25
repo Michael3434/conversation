@@ -1,0 +1,37 @@
+
+
+<div class="container text-center">
+    <div class="panel panel-default">
+      <div class="panel-heading text-center">
+        <h2>Messages</h2>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-3">
+            <h4>With</h4>
+          </div>
+          <div class="col-md-6">
+            <h4>Content</h4>
+          </div>
+          <div class="col-md-3">
+            <h4>Reply</h4>
+          </div>
+        </div>  <hr>
+        <% @conversations.each do |conv| %>
+        <div class="row">
+          <div class="col-md-3">
+              <%= conv[1] %>
+          </div>
+          <div class="col-md-6">
+            <%= conv[0] %>
+          </div>
+          <div class="col-md-3">
+            <%= link_to "View", new_message_path(:email_to => conv[1]) %>
+          </div>
+        </div>
+          <hr>
+          <% end %>
+        </div>
+      </div>
+    </div>
+</div>
