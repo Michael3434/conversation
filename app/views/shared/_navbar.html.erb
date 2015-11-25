@@ -29,11 +29,13 @@
         <a href="/messages"><i class="fa fa-envelope-o"></i>&nbspMessage</a>
       </li>
       <li id="manager-user">
-        <% if current_user.manager == true %>
-        <a href=''>&nbspManager</a>
-        <% else %>
-        <a href=''>&nbspUser</a>
-        <% end %>
+        <% if !current_user.nil? %>
+          <% if current_user.manager == true %>
+          <a href=''>&nbspManager</a>
+          <% else %>
+          <a href=''>&nbspUser</a>
+          <% end %>
+        <% end  %>
       </li>
       </ul>
     </div><!--/.nav-collapse -->
