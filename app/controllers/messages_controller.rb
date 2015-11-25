@@ -1,4 +1,7 @@
 class MessagesController < ApplicationController
+
+  skip_before_action :verify_authenticity_token
+
   def index
     @current_user = current_user
     @users = User.all
@@ -28,10 +31,6 @@ class MessagesController < ApplicationController
   end
 
   def show
-    raise
-    puts @a
-    put "looool"
-    # @messages = current_user.messages.order("created_at ASC")
   end
 
   def destroy
@@ -67,8 +66,9 @@ class MessagesController < ApplicationController
   def create
       @email = params[:message][:sent_messageable_id]
       @to = User.where(email: @email).first
-      current_user.send_message(@to, params[:message][:body])
-  redirect_to new_message_path(email_to: "mt.monin@gmail.com")
+      @message = current_user.send_message(@to, params[:message][:body])
+      redirect_to new_message_path(email_to: @email)
+
   end
 
   def mark_as_read(message)
@@ -76,4 +76,5 @@ class MessagesController < ApplicationController
       mess.update(opened: true)
     end
   end
+
 end

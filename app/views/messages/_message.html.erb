@@ -1,14 +1,15 @@
+
     <% if !@conversation.nil?  %>
-      <%  @conversation.each do |conv| %>
-        <% if conv.sent_messageable_id == current_user.id %>
-          <div class="panel panel-default text-left">
-            <div class="panel-heading">
+      <%  @conversation.each do |message| %>
+        <% if message.sent_messageable_id == current_user.id %>
+          <div class="panel panel-default text-left" id="display-message">
+            <div class="panel-heading" id="row">
               <div class="row">
                 <div class="col-md-6 pull-left conv" >
                     From me<br>
-                    <%= "Unread" if conv.opened == false %>
-                    <%= "Read" if conv.opened == true %>
-                  <label><%= conv.body %></label>
+                    <%= "Unread" if message.opened == false %>
+                    <%= "Read" if message.opened == true %>
+                  <label><%= message.body %></label>
                 </div><br>
               </div>
             </div>
@@ -18,8 +19,8 @@
               <div class="panel-heading">
                 <div class="row">
                   <div class="col-md-6 conv" >
-                    From <%= User.where(id: conv.sent_messageable_id).first.email %><br>
-                    <label><%= conv.body %></label>
+                    From <%= User.where(id: message.sent_messageable_id).first.email %><br>
+                    <label><%= message.body %></label>
                     <br>
                   </div><br>
                 </div>
@@ -28,7 +29,8 @@
         <% end %>
       <% end %>
     <% end %>
-  </div>
+
+
 
 
 
