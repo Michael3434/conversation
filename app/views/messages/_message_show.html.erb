@@ -1,0 +1,41 @@
+
+<% if message.body != "" %>
+<% if message.sent_messageable_id == current_user.id %>
+    <div class="panel panel-default text-left">
+      <div class="panel-heading" id="row">
+        <div class="row">
+          <div class="col-md-6 pull-left conv" >
+              From me<br>
+              <%= "Unread" if message.opened == false %>
+              <%= "Read" if message.opened == true %>
+              <% if !message.topic.nil? %>
+              <%= link_to "Download content", messages_new_download_message_picture_path(:message => message), class: "try"  %>
+              <% else %>
+              <label><%= message.body %></label>
+              <% end %>
+          </div><br>
+        </div>
+      </div>
+    </div><br>
+    <% else %>
+    <div class="panel panel-default text-left">
+      <div class="panel-heading">
+        <div class="row">
+          <div class="col-md-6 conv" >
+            From <%= User.where(id: message.sent_messageable_id).first.email %><br>
+             <% if !message.topic.nil? %>
+              <%= link_to "Download content", Photo.find(message.photo_id).image.url()  %>
+              <% else %>
+              <label><%= message.body %></label>
+              <% end %>
+            <br>
+          </div>
+        </div>
+      </div>
+    </div>
+<% end %>
+<% end %>
+
+<!-- Photo.find(message.photo_id).image.url() -->
+
+

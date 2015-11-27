@@ -1,10 +1,18 @@
 Rails.application.routes.draw do
   root 'pages#home'
 
+  post 'user' => 'pages#create', as: :update_pages
+
+  get "messages/new/download_message_picture" => "messages#download_message_picture"
+
+
   devise_for :users
   resources :messages
+  resources :photos
 
 
+
+  # get '/messages_file/:file', to: 'messages#download_image', as: 'download_file_path'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
