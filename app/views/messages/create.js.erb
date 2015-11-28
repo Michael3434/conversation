@@ -1,10 +1,5 @@
-"<%= p "####################" %>"
-"<%= p @message %>"
-
-
 var new_message = $("<%= j render 'messages/show', message: @message %>").hide();
   $('#chat').prepend(new_message);
   new_message.slideDown();
-
-  $('#form-to-body').val('');
+  $('#text').val('');
 

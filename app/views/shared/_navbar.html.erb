@@ -31,10 +31,10 @@
       <li>
         <span class="btn btn-default btn-file">
           <i class="fa fa-cloud-upload fa-lg"></i>Upload Photos
-          <% if !@photo.nil? %>
-          <%= form_for @photo, html: { multipart: true, id: "form-for-img" } do |f| %>
-           <%= file_field_tag "image[]", type: :file, multiple: true %>
-          <% end %>
+          <% if user_signed_in? %>
+            <%= form_for @photo, html: { multipart: true, id: "form-for-img" } do |f| %>
+             <%= file_field_tag "image[]", type: :file, multiple: true %>
+            <% end %>
           <% end %>
         </span>
       </li>
