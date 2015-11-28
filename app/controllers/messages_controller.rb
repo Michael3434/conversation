@@ -4,27 +4,8 @@ class MessagesController < ApplicationController
 
   def index
     @photo = Photo.new
-    @current_user = current_user
     @users = User.all
-    @messages = current_user.messages.order("created_at ASC") if !current_user.messages.nil?
-    @a = @messages.group_by do |rec|
-      [rec.sent_messageable_id , rec.received_messageable_id].sort
-    end
-    times = @a.keys.length
-    x = 0
-    @body = []
-    @email = []
-    times.times do
-    @body << @a.values[x].first.body
-      if @a.values[x].first.sent_messageable_id == current_user.id
-        @email << @users.find(@a.values[x].first.received_messageable_id).email
-
-      else
-        @email << @users.find(@a.values[x].first.sent_messageable_id).email
-      end
-    x += 1
-    end
-    @conversations = Hash[@body.zip @email]
+    get_conversation
   end
 
   def outbox
@@ -70,34 +51,10 @@ class MessagesController < ApplicationController
   end
 
   def new
-    # @photos_user = current_user.photos.first if !current_user.photos.nil?
-    # @url_photo = @photos_user.image.url() if !@photos_user.nil?
     @photo = Photo.new
-    @messages = current_user.messages.order("created_at ASC") if !current_user.messages.nil?
-
-
     @users = User.all
-    @messages = current_user.messages.order("created_at ASC") if !current_user.messages.nil?
-    @a = @messages.group_by do |rec|
-      [rec.sent_messageable_id , rec.received_messageable_id].sort
-    end
-    times = @a.keys.length
-    x = 0
-    @body = []
-    @email = []
-    times.times do
-    @body << @a.values[x].first.body
-      if @a.values[x].first.sent_messageable_id == current_user.id
-        @email << @users.find(@a.values[x].first.received_messageable_id).email
 
-      else
-        @email << @users.find(@a.values[x].first.sent_messageable_id).email
-      end
-    x += 1
-    end
-    @conversations = Hash[@body.zip @email]
-
-
+    get_conversation
 
     @images_names = []
     current_user.photos.each do |photo|
@@ -144,6 +101,35 @@ class MessagesController < ApplicationController
         format.html { redirect_to new_message_path(email_to: @email) }
         format.js  # <-- will render `app/views/reviews/create.js.erb`
       end
+  end
+
+  def get_conversation
+   @messages = current_user.messages.order("created_at ASC") if !current_user.messages.nil?
+    @a = @messages.group_by do |rec|
+      [rec.sent_messageable_id , rec.received_messageable_id].sort
+    end
+    times = @a.keys.length
+    x = 0
+    @body = []
+    @email = []
+    times.times do
+      if @a.values[x].first.body.include? "Image_inside"
+        value = @a.values[x].first.body + x.to_s
+        @body << value
+      else
+        @body << @a.values[x].first.body
+      end
+      if @a.values[x].first.sent_messageable_id == current_user.id
+        @email << @users.find(@a.values[x].first.received_messageable_id).email
+
+      else
+        @email << @users.find(@a.values[x].first.sent_messageable_id).email
+      end
+    x += 1
+    end
+    @body.reverse
+    @email.reverse
+    @all_conversations = Hash[@body.zip @email]
   end
 
   def mark_as_read(message)

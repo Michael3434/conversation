@@ -58,3 +58,24 @@
 .btn-select-hide {
   display: none;
 }
+
+.read {
+    right: 0;
+    bottom: 0;
+    margin: -9px 8px;
+    position: absolute;
+    color: #2CBE42;
+    content: "\f00c";
+}
+
+.unread {
+    right: 0;
+    bottom: 0;
+    margin: -9px 8px;
+    position: absolute;
+    color: #C8D5B9;
+    content: "\f00c";
+}
+
+
+

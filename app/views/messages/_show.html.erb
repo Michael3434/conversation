@@ -3,10 +3,10 @@
           <div class="panel panel-default text-left">
             <div class="panel-heading" id="row">
               <div class="row">
-                <div class="col-md-6 pull-left conv" >
+                <div class="col-md-12 pull-left conv" >
                     From me<br>
-                    <%= "Unread" if message.opened == false %>
-                    <%= "Read" if message.opened == true %>
+                    <%= "<i class='fa fa-check unread fa-2x'></i></i>".html_safe.html_safe if message.opened == false %>
+                    <%= "<i class='fa fa-check read fa-2x'></i></i>".html_safe if message.opened == true %>
                     <% if !message.topic.nil? && !message.photo_id.nil?  %>
                     <%= link_to "Download content", Photo.find(message.photo_id).image.url(), class: "try"  %>
                     <% else %>
@@ -20,7 +20,7 @@
           <div class="panel panel-default text-left">
             <div class="panel-heading">
               <div class="row">
-                <div class="col-md-6 conv" >
+                <div class="col-md-12 conv" >
                   From <%= User.where(id: message.sent_messageable_id).first.email %><br>
                    <% if !message.topic.nil? %>
                     <%= link_to "Download content", Photo.find(message.photo_id).image.url() %>
@@ -35,6 +35,7 @@
       <% end %>
     <% end %>
 
+C8D5B9
 <!-- messages_new_download_message_picture_path(:message => message) -->
 <!-- Photo.find(message.photo_id).image.url() -->
 

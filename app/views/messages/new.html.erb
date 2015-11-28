@@ -18,18 +18,18 @@
                     <h4>Reply</h4>
                   </div>
                 </div>  <hr>
-                <% @conversations.each do |conv| %>
+                <% @all_conversations.each do |conv| %>
                 <div class="row">
                   <div class="col-md-3">
                       <%= conv[1][0..5] + ".." %>
                   </div>
                   <div class="col-md-6">
-                    <%= conv[0] == "i" ? "Image sent" : conv[0][0..5] + ".."  %>
+                    <%= !(/\d/).match(conv[0]).nil? ? "Image sent" : conv[0][0..9] + ".."  %>
                   </div>
                   <div class="col-md-3">
                     <%= link_to "View", new_message_path(:email_to => conv[1]) %>
                   </div>
-                </div>
+                </div><hr>
                 <% end %>
               </div>
             </div>
