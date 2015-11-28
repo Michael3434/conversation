@@ -106,10 +106,10 @@ class MessagesController < ApplicationController
       # end
       @email = params[:message][:sent_messageable_id]
       @to = User.where(email: @email).first
+      p params
       @message = current_user.send_message(@to, { body: params[:message][:body], topic: params[:message][:topic] })
-
-      # @message.photo_id = @image.id
-      # @message.save
+      @message.photo_id = @image.id
+      @message.save
       respond_to do |format|
         format.html { redirect_to new_message_path(email_to: @email) }
         format.js  # <-- will render `app/views/reviews/create.js.erb`
