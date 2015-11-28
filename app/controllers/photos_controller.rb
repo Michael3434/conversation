@@ -1,6 +1,9 @@
 class PhotosController < ApplicationController
 
   def create
-    raise
+    params[:image].each do |image|
+      Photo.new(image: image).save
+    end
+    redirect_to messages_path
   end
 end
