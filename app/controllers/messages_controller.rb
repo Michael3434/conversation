@@ -3,7 +3,7 @@ class MessagesController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    @photos = Photo.new
+    @photo = Photo.new
     @current_user = current_user
     @users = User.all
     @messages = current_user.messages.order("created_at ASC") if !current_user.messages.nil?
@@ -72,7 +72,7 @@ class MessagesController < ApplicationController
   def new
     # @photos_user = current_user.photos.first if !current_user.photos.nil?
     # @url_photo = @photos_user.image.url() if !@photos_user.nil?
-    @photos = Photo.new
+    @photo = Photo.new
     @messages = current_user.messages.order("created_at ASC") if !current_user.messages.nil?
     @images_names = []
     current_user.photos.each do |photo|
@@ -99,21 +99,23 @@ class MessagesController < ApplicationController
   end
 
   def create
-      raise
-      @image = current_user.photos.where(image_file_name: params[:message][:topic]).first
-      @img_url = @image.image.url()
+
+    @photo = Photo.new
+      # if !current_user.photos.nil?
+      #   @image = current_user.photos.where(image_file_name: params[:message][:topic]).first
+      #   @img_url = @image.image.url()
+      # end
       p "#"*20
-      p @img_url
       @email = params[:message][:sent_messageable_id]
       @to = User.where(email: @email).first
       @message = current_user.send_message(@to, { body: params[:message][:body], topic: "http://localhost:3000#{@img_url}" })
-      @message.photo_id = @image.id
-      @message.save
+      # @message.photo_id = @image.id
+      # @message.save
       respond_to do |format|
         format.html { redirect_to new_message_path(email_to: @email) }
         format.js  # <-- will render `app/views/reviews/create.js.erb`
       end
-
+   raise
   end
 
   def mark_as_read(message)

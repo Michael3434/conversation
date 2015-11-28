@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   root 'pages#home'
 
-  post 'user' => 'pages#create', as: :update_pages
+  # post 'user' => 'pages#create', as: :update_pages
+  post 'messages/new' => 'messages#create', as: :update_pages
 
   get "messages/new/download_message_picture" => "messages#download_message_picture"
 

@@ -2,20 +2,18 @@
 
 <%= link_to "Raw blast output", "http://localhost:3000/system/photos/images/000/000/001/original/logo_faccebook.jpg?1448557265" %>
 <%  if !@photos_user.nil? %>
-<% @photos_user.each do |photo| %>
-  <%= image_tag photo.image.url() %>
+  <% @photos_user.each do |photo| %>
+    <%= image_tag photo.image.url() %>
+  <% end %>
 <% end %>
 
   <% @users.each do |user| %>
     <% if current_user.email != user.email && current_user.manager != true %>
       <%  if user.manager == true %>
         <%= link_to "Send a message", new_message_path(:email_to => user.email) %>
-        <input type="hidden" name="country" value="Norway">
-
         <%= user.email %><br>
       <% end  %>
     <% end %>
   <% end %>
-<% end %>
 <% end %>
 

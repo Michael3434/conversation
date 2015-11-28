@@ -31,8 +31,10 @@
       <li>
         <span class="btn btn-default btn-file">
           <i class="fa fa-cloud-upload fa-lg"></i>Upload Photos
-          <%= form_for @photo, html: { multipart: true } do |f| %>
-          <%= f.file_field :image, type: :file, multiple: true %>
+          <% if !@photo.nil? %>
+          <%= form_for @photo, html: { multipart: true, id: "form-for-img" } do |f| %>
+           <%= file_field_tag "image[]", type: :file, multiple: true %>
+          <% end %>
           <% end %>
         </span>
       </li>

@@ -1,4 +1,5 @@
-
+<% if !@conversation.nil?  %>
+<%  @conversation.each do |message| %>
 <% if message.body != "" %>
 <% if message.sent_messageable_id == current_user.id %>
     <div class="panel panel-default text-left">
@@ -33,6 +34,8 @@
         </div>
       </div>
     </div>
+<% end %>
+<% end %>
 <% end %>
 <% end %>
 

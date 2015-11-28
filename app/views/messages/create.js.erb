@@ -1,1 +1,11 @@
+var new_message = $("<%= j render 'messages/new', @message: message %>").hide();
+  // Add it to the DOM, at the end of the existing reviews. It's still hidden.
+  $('#form-to-body').append(new_message);
+  $('#form-to-photo').append(new_message);
+  console.log("hey")
+
+  // Show the new review with an animation!
+  new_message.slideDown();
+  // Remove the text from the content textarea.
+  $('#text').val('');
 
