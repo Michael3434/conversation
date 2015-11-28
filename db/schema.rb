@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151128000803) do
+ActiveRecord::Schema.define(version: 20151128001944) do
 
   create_table "messages", force: :cascade do |t|
     t.string   "topic"
@@ -28,9 +28,11 @@ ActiveRecord::Schema.define(version: 20151128000803) do
     t.string   "ancestry"
     t.boolean  "recipient_permanent_delete", default: false
     t.boolean  "sender_permanent_delete",    default: false
+    t.integer  "photo_id"
   end
 
   add_index "messages", ["ancestry"], name: "index_messages_on_ancestry"
+  add_index "messages", ["photo_id"], name: "index_messages_on_photo_id"
   add_index "messages", ["sent_messageable_id", "received_messageable_id"], name: "acts_as_messageable_ids"
 
   create_table "photos", force: :cascade do |t|
@@ -41,9 +43,11 @@ ActiveRecord::Schema.define(version: 20151128000803) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.integer  "user_id"
   end
 
   add_index "photos", ["message_id"], name: "index_photos_on_message_id"
+  add_index "photos", ["user_id"], name: "index_photos_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
