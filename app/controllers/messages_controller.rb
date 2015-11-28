@@ -100,10 +100,14 @@ class MessagesController < ApplicationController
 
   def create
     @photo = Photo.new
-      # if !current_user.photos.nil?
-      #   @image = current_user.photos.where(image_file_name: params[:message][:topic]).first
-      #   @img_url = @image.image.url()
-      # end
+    if !current_user.photos.nil?
+      p current_user.photos
+      p params[:message][:topic]
+      @image = current_user.photos.where(image_file_name: params[:message][:topic]).first
+      p "LOOOOOOOOOL"
+      p @image
+
+    end
       @email = params[:message][:sent_messageable_id]
       @to = User.where(email: @email).first
       p params
