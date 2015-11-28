@@ -6,7 +6,7 @@
   <% end %>
   <%= form_for @message, :html => {:class => 'form-group', :id => "form-to-photo"}, remote: true do |f| %>
   <%= f.hidden_field :sent_messageable_id, value: params[:email_to], id: "email" if !params[:email_to].nil? %>
-  <%= f.select :topic, @images_names, {prompt: "Choose your picture"}, {class: 'form-control select', id: 'select'},  %>
+  <%= f.select :topic, @images_names, {prompt: "Choose your picture"}, {class: 'form-control', id: 'select'} %>
   <%= f.hidden_field :body, value: "i" %>
-  <%= f.submit "Send picture", class: "btn btn-primary" %>
+  <%= f.submit "Send picture", class: "btn btn-primary btn-select-hide", id: "btn-select" %>
 <% end %>

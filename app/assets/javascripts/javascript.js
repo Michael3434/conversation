@@ -3,6 +3,7 @@ $(document).ready(function() {
     $(this).submit();
   });
 $('#select').on('change', function(){
-    alert("lol")
+    $('#btn-select').removeClass('btn-select-hide')
   });
 });
+

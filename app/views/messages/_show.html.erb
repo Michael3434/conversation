@@ -7,7 +7,7 @@
                     From me<br>
                     <%= "Unread" if message.opened == false %>
                     <%= "Read" if message.opened == true %>
-                    <% if !message.topic.nil? %>
+                    <% if !message.topic.nil? && !message.photo_id.nil?  %>
                     <%= link_to "Download content", Photo.find(message.photo_id).image.url(), class: "try"  %>
                     <% else %>
                     <label><%= message.body %></label>
@@ -23,7 +23,7 @@
                 <div class="col-md-6 conv" >
                   From <%= User.where(id: message.sent_messageable_id).first.email %><br>
                    <% if !message.topic.nil? %>
-                    <%= link_to "Download content", messages_new_download_message_picture_path(:message => message)  %>
+                    <%= link_to "Download content", Photo.find(message.photo_id).image.url() %>
                     <% else %>
                     <label><%= message.body %></label>
                     <% end %>
@@ -35,7 +35,7 @@
       <% end %>
     <% end %>
 
-
+<!-- messages_new_download_message_picture_path(:message => message) -->
 <!-- Photo.find(message.photo_id).image.url() -->
 
 

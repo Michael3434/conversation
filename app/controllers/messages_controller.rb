@@ -74,6 +74,31 @@ class MessagesController < ApplicationController
     # @url_photo = @photos_user.image.url() if !@photos_user.nil?
     @photo = Photo.new
     @messages = current_user.messages.order("created_at ASC") if !current_user.messages.nil?
+
+
+    @users = User.all
+    @messages = current_user.messages.order("created_at ASC") if !current_user.messages.nil?
+    @a = @messages.group_by do |rec|
+      [rec.sent_messageable_id , rec.received_messageable_id].sort
+    end
+    times = @a.keys.length
+    x = 0
+    @body = []
+    @email = []
+    times.times do
+    @body << @a.values[x].first.body
+      if @a.values[x].first.sent_messageable_id == current_user.id
+        @email << @users.find(@a.values[x].first.received_messageable_id).email
+
+      else
+        @email << @users.find(@a.values[x].first.sent_messageable_id).email
+      end
+    x += 1
+    end
+    @conversations = Hash[@body.zip @email]
+
+
+
     @images_names = []
     current_user.photos.each do |photo|
       @images_names << photo.image_file_name
@@ -103,7 +128,6 @@ class MessagesController < ApplicationController
     if !current_user.photos.nil?
       p current_user.photos
       p params[:message][:topic]
-      @image = current_user.photos.where(image_file_name: params[:message][:topic]).first
       p "LOOOOOOOOOL"
       p @image
 
@@ -112,7 +136,9 @@ class MessagesController < ApplicationController
       @to = User.where(email: @email).first
       p params
       @message = current_user.send_message(@to, { body: params[:message][:body], topic: params[:message][:topic] })
-      @message.photo_id = @image.id
+
+      @image = current_user.photos.where(image_file_name: params[:message][:topic]).first
+      @message.photo_id = @image.id if !@image.nil?
       @message.save
       respond_to do |format|
         format.html { redirect_to new_message_path(email_to: @email) }
