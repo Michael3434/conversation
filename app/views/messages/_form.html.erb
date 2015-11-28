@@ -1,0 +1,12 @@
+<%= form_for @message, :html => {:class => 'form-froup', :id => "form-to-body"}, remote: true do |f| %>
+  <%= f.hidden_field :sent_messageable_id, value: params[:email_to], id: "email" if !params[:email_to].nil? %>
+  <%= f.label :body, "Enter a message" %>
+  <%= f.text_area :body, class: "form-control", id: "text"%>
+  <%= f.submit "Submit", class: "btn btn-primary" %>
+  <% end %>
+  <%= form_for @message, :html => {:class => 'form-group', :id => "form-to-photo"}, remote: true do |f| %>
+  <%= f.hidden_field :sent_messageable_id, value: params[:email_to], id: "email" if !params[:email_to].nil? %>
+  <%= f.select :topic, @images_names, {prompt: "Choose your picture"}, {class: 'form-control'} %>
+  <%= f.hidden_field :body, value: "image" if !@photos_user.nil? %>
+  <%= f.submit "Send picture", class: "btn btn-primary" %>
+<% end %>

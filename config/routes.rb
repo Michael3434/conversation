@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   root 'pages#home'
 
-  post 'messages/new' => 'photos#create'
   # post 'user' => 'pages#create', as: :update_pages
   post 'messages/new' => 'messages#create', as: :update_pages
 

@@ -99,23 +99,21 @@ class MessagesController < ApplicationController
   end
 
   def create
-
     @photo = Photo.new
       # if !current_user.photos.nil?
       #   @image = current_user.photos.where(image_file_name: params[:message][:topic]).first
       #   @img_url = @image.image.url()
       # end
-      p "#"*20
       @email = params[:message][:sent_messageable_id]
       @to = User.where(email: @email).first
-      @message = current_user.send_message(@to, { body: params[:message][:body], topic: "http://localhost:3000#{@img_url}" })
+      @message = current_user.send_message(@to, { body: params[:message][:body], topic: params[:message][:topic] })
+
       # @message.photo_id = @image.id
       # @message.save
       respond_to do |format|
         format.html { redirect_to new_message_path(email_to: @email) }
         format.js  # <-- will render `app/views/reviews/create.js.erb`
       end
-   raise
   end
 
   def mark_as_read(message)
