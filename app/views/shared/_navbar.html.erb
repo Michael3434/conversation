@@ -28,6 +28,14 @@
       <li>
         <a href="/messages"><i class="fa fa-envelope-o"></i>&nbspMessage</a>
       </li>
+      <li>
+        <span class="btn btn-default btn-file">
+          <i class="fa fa-cloud-upload fa-lg"></i>Upload Photos
+          <%= form_for @photo, html: { multipart: true } do |f| %>
+          <%= f.file_field :image, type: :file, multiple: true %>
+          <% end %>
+        </span>
+      </li>
       <li id="manager-user">
         <% if !current_user.nil? %>
           <% if current_user.manager == true %>

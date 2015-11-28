@@ -1,3 +1,2 @@
-class Messages < ActiveRecord::Base
-  belongs_to :photo
+class Message < ActiveRecord::Base
 end

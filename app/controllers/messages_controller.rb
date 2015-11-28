@@ -70,8 +70,8 @@ class MessagesController < ApplicationController
   end
 
   def new
-    @photos_user = current_user.photos.first if !current_user.photos.nil?
-    @url_photo = @photos_user.image.url() if !@photos_user.nil?
+    # @photos_user = current_user.photos.first if !current_user.photos.nil?
+    # @url_photo = @photos_user.image.url() if !@photos_user.nil?
     @photos = Photo.new
     @messages = current_user.messages.order("created_at ASC") if !current_user.messages.nil?
     @images_names = []
@@ -99,6 +99,7 @@ class MessagesController < ApplicationController
   end
 
   def create
+      raise
       @image = current_user.photos.where(image_file_name: params[:message][:topic]).first
       @img_url = @image.image.url()
       p "#"*20
