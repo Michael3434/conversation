@@ -25,21 +25,19 @@
           </ul>
         </li>
       <% end %>
-      <li>
-        <a href="/messages"><i class="fa fa-envelope-o"></i>&nbspMessage</a>
-      </li>
-      <li>
-        <span class="btn btn-default btn-file">
-          <i class="fa fa-cloud-upload fa-lg"></i>Upload Photos
-          <% if user_signed_in? %>
-            <%= form_for @photo, html: { multipart: true, id: "form-for-img" } do |f| %>
-             <%= file_field_tag "image[]", type: :file, multiple: true %>
-            <% end %>
-          <% end %>
-        </span>
+      <% if !current_user.nil? %>
+        <li>
+          <a href="/messages"><i class="fa fa-envelope-o"></i>&nbspMessage</a>
+        </li>
+        <li>
+          <span class="btn btn-default btn-file">
+            <i class="fa fa-cloud-upload fa-lg"></i>Upload Photos
+              <%= form_for @photo, html: { multipart: true, id: "form-for-img" } do |f| %>
+                <%= file_field_tag "image[]", type: :file, multiple: true %>
+              <% end %>
+          </span>
       </li>
       <li id="manager-user">
-        <% if !current_user.nil? %>
           <% if current_user.manager == true %>
           <a href=''>&nbspManager</a>
           <% else %>

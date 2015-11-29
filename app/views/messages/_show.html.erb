@@ -1,9 +1,9 @@
     <% if message.body != "" %>
       <% if message.sent_messageable_id == current_user.id %>
           <div class="panel panel-default text-left">
-            <div class="panel-heading" id="row">
+            <div class="panel-heading me" id="row">
               <div class="row">
-                <div class="col-md-12 pull-left conv" >
+                <div class="col-md-12 pull-rigth conv pull_right" >
                     From me<br>
                     <%= "<i class='fa fa-check unread fa-2x'></i></i>".html_safe.html_safe if message.opened == false %>
                     <%= "<i class='fa fa-check read fa-2x'></i></i>".html_safe if message.opened == true %>
@@ -18,7 +18,7 @@
           </div><br>
           <% else %>
           <div class="panel panel-default text-left">
-            <div class="panel-heading">
+            <div class="panel-heading" id="row">
               <div class="row">
                 <div class="col-md-12 conv" >
                   From <%= User.where(id: message.sent_messageable_id).first.email %><br>

@@ -1,6 +1,10 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+body {
+  font-family: "Roboto";
+}
+
 .btn-primary {
   padding: 10px;
   margin: 10px;
@@ -15,10 +19,16 @@
 .conv {
   padding: 10px;
   padding-left: 20px;
+
+}
+
+.pull_right {
+  text-align: right;
+  padding-right: 70px;
 }
 
 #title {
-  color: #002846;
+  color: white;
 }
 
 #manager-user {
@@ -77,5 +87,48 @@
     content: "\f00c";
 }
 
+select {
+  color: #565a5c;
+  background-color: #fff;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  padding: 10px;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
 
+.select:before {
+  content:'\25bc';
+  position: absolute;
+  color: #82888a;
+  top: 40px;
+  right: 30px;
+  transform: scale(0.84, 0.42);
+}
+
+.text-left {
+  border: 0px;
+  border-radius: 15px;
+
+}
+
+
+#row {
+  border-radius: 15px;
+  border: 0px;
+}
+
+.navbar-fixed-top {
+    background-color: #002846;
+  }
+
+.navbar-default .navbar-nav > li > a {
+    color: #FFF;
+}
+
+.panel-heading.me {
+  background-color: rgba(163, 234, 241, 0.28);
+}
 
