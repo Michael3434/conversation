@@ -8,7 +8,11 @@
                     <%= "<i class='fa fa-check unread fa-2x'></i></i>".html_safe.html_safe if message.opened == false %>
                     <%= "<i class='fa fa-check read fa-2x'></i></i>".html_safe if message.opened == true %>
                     <% if !message.topic.nil? && !message.photo_id.nil?  %>
+
                     <%= link_to "Download content", Photo.find(message.photo_id).image.url(), class: "try"  %>
+                    <%# Never write calls to the database directly in the views. Views should only display stuff and user variables that %>
+                    <%# the controller has defined. Better: message.photo.image.url  %>
+
                     <% else %>
                     <label><%= message.body %></label>
                     <% end %>
@@ -21,9 +25,15 @@
             <div class="panel-heading" id="row">
               <div class="row">
                 <div class="col-md-12 conv" >
+
                   From <%= User.where(id: message.sent_messageable_id).first.email %><br>
+                  <%# Same thing here, replace User.where... by a call to a method on the message object: `message.sender.email` and you define the sender method in a CustomMessage class (https://github.com/LTe/acts-as-messageable#custom-class) %>
+
+
                    <% if !message.topic.nil? %>
                     <%= link_to "Download content", Photo.find(message.photo_id).image.url() %>
+                    <%#= link_to "Download content", message.photo.image.url %>
+
                     <% else %>
                     <label><%= message.body %></label>
                     <% end %>

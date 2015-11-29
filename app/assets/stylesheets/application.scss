@@ -1,3 +1,21 @@
+// One very cool thing with bootstrap is that you can customize bootstrap's variables to define your own colors, fonts, buttons...
+// See: http://getbootstrap.com/customize/
+
+// For example, if you want to change the brand primary color:
+$brand-primary: #002846;
+
+// Or if you want to customize the navbar
+$navbar-height: 50px;
+$navbar-border-radius: 0;
+$navbar-default-color: #fff;
+$navbar-default-bg: $brand-primary;
+$navbar-margin-bottom: 0;
+$navbar-default-link-active-bg: rgba(255,255,255,0);
+$navbar-default-link-color: white;
+$navbar-default-link-active-color: lighten($brand-primary, 50%);
+$navbar-default-link-hover-color: lighten($brand-primary, 50%);
+
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
@@ -120,13 +138,13 @@ select {
   border: 0px;
 }
 
-.navbar-fixed-top {
-    background-color: #002846;
-  }
+// .navbar-fixed-top {
+//     background-color: #002846;
+//   }
 
-.navbar-default .navbar-nav > li > a {
-    color: #FFF;
-}
+// .navbar-default .navbar-nav > li > a {
+//     color: #FFF;
+// }
 
 .panel-heading.me {
   background-color: rgba(163, 234, 241, 0.28);
