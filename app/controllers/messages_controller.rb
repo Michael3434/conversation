@@ -61,15 +61,8 @@ class MessagesController < ApplicationController
       @images_names << photo.image_file_name
     end
 
-    @a = @messages.group_by do |rec|
-      [rec.sent_messageable_id , rec.received_messageable_id].sort
-    end
-    user_id = User.where(email: params[:email_to]).first.id
-    @a.keys.each_with_index do |key, index|
-      if key.include? user_id
-        @conversation = @a.values[index]
-      end
-    end
+    get_conversation1
+
     if !@conversation.nil?
       if current_user.id == @conversation.first.sent_messageable_id
       else
@@ -77,21 +70,38 @@ class MessagesController < ApplicationController
       end
     end
     @message = Message.new
+
     @user = current_user
+
+    ###### Get time ######
+    if current_user.manager == true
+      @conversation.reverse.each do |mess|
+        if mess.received_messageable_id == current_user.id
+          @time_last_message_received = mess.created_at
+        end
+      end
+      @conversation.reverse.each do |mess|
+        if mess.sent_messageable_id == current_user.id
+          @time_last_message_sent = mess.created_at
+        end
+      end
+    end
+    @time_to_answer = @time_last_message_received - @time_last_message_sent
+    if @time_to_answer.to_s.include? "-"
+      # current_user.average_time_answer
+    else
+    end
+    ##########################
+
   end
 
   def create
     @photo = Photo.new
     if !current_user.photos.nil?
-      p current_user.photos
-      p params[:message][:topic]
-      p "LOOOOOOOOOL"
-      p @image
 
     end
       @email = params[:message][:sent_messageable_id]
       @to = User.where(email: @email).first
-      p params
       @message = current_user.send_message(@to, { body: params[:message][:body], topic: params[:message][:topic] })
 
       @image = current_user.photos.where(image_file_name: params[:message][:topic]).first
@@ -101,6 +111,19 @@ class MessagesController < ApplicationController
         format.html { redirect_to new_message_path(email_to: @email) }
         format.js  # <-- will render `app/views/reviews/create.js.erb`
       end
+  end
+
+  def get_conversation1
+    @other_user_id = User.where(email: params[:email_to]).first.id
+    @conversation = []
+    current_user.messages.each do |mess|
+      if mess.received_messageable_id == current_user.id && mess.sent_messageable_id == @other_user_id
+        @conversation << mess
+      elsif mess.sent_messageable_id == current_user.id && mess.received_messageable_id == @other_user_id
+        @conversation << mess
+      end
+    end
+    @conversation
   end
 
   def get_conversation
